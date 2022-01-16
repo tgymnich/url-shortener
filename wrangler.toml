@@ -1,0 +1,19 @@
+name = "url-shortener"
+type = "webpack"
+
+account_id = "750f62e8572e2d2ab97bf4f84bb2a46b"
+workers_dev = true
+
+compatibility_date = "2022-01-16"
+
+kv_namespaces = [ 
+	 { binding = "SHORTEN", id = "846502cb8f964e22ac4b7d2c801407d0", preview_id = "495ee41cb63b4690afa00d50836ac201" }
+]
+
+[env.production]
+workers_dev = false
+route = "https://fwd.gymni.ch/*"
+zone_id = "96423566f92f0fd09efb409c4424521f"
+kv_namespaces = [ 
+	 { binding = "SHORTEN", id = "846502cb8f964e22ac4b7d2c801407d0", preview_id = "495ee41cb63b4690afa00d50836ac201" }
+]
