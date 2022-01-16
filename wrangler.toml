@@ -17,3 +17,7 @@ zone_id = "96423566f92f0fd09efb409c4424521f"
 kv_namespaces = [ 
 	 { binding = "SHORTEN", id = "846502cb8f964e22ac4b7d2c801407d0", preview_id = "495ee41cb63b4690afa00d50836ac201" }
 ]
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"

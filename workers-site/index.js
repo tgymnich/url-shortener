@@ -1,5 +1,6 @@
 import { Router } from 'itty-router';
 import { customAlphabet } from 'nanoid';
+import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
 
 const router = Router();
 const nanoid = customAlphabet(
@@ -43,7 +44,16 @@ router.get('/:slug', async request => {
   }
 });
 
+async function handleEvent(event) {
+  let requestUrl = new URL(event.request.url);
+  if (requestUrl.pathname === '/' || requestUrl.pathname.includes('static')) {
+    return await getAssetFromKV(event);
+  } else {
+    return await router.handle(event.request);
+  }
+}
+
 
 addEventListener('fetch', event => {
-  event.respondWith(router.handle(event.request))
-})
+  event.respondWith(handleEvent(event));
+});
