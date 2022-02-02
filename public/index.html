@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>URL Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@next"></script>
   </head>
@@ -9,14 +10,14 @@
     <div id="app">
     <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
     <div class="max-w-lg mx-auto text-center">
-      <h1 class="text-2xl font-bold sm:text-3xl">Shorten a URL!</h1>
+      <h1 class="text-2xl font-bold sm:text-3xl">Shorten a Link!</h1>
   
       <p class="mt-4 text-gray-500">
         Fill in the URL you want to shorten below.
       </p>
     </div>
   
-    <form @submit.prevent="handleUrlSubmit" class="max-w-xl mx-auto mt-8 mb-0 space-y-4">
+    <form @submit.prevent="handleUrlSubmit" class="max-w-xl mx-auto mt-8 mb-0 space-y-8">
         <input
           type="url"
           id="input-url"
