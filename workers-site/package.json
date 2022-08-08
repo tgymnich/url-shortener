@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
-    "itty-router": "^2.4.8",
-    "nanoid": "^3.1.32"
+    "itty-router": "^2.6.1",
+    "nanoid": "^4.0.0"
   }
 }
