@@ -7,6 +7,9 @@ on:
 
 jobs:
   deploy:
+    environment:
+      name: production
+      url: https://fwd.gymni.ch
     runs-on: ubuntu-latest
     name: Deploy
     steps:
