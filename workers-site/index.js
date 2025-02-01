@@ -17,7 +17,7 @@ export default {
       let slug = nanoid();
       let requestBody = await req.json();
       if ('url' in requestBody) {
-        env.SHORTEN.put(slug, requestBody.ur);
+        await env.SHORTEN.put(slug, requestBody.url);
         let shortenedURL = `${new URL(req.url).origin}/${slug}`;
         let responseBody = {
           message: 'Link shortened successfully',
