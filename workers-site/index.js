@@ -75,7 +75,7 @@ export default {
         },
       );
     } else {
-      return await router.handle(request, env, ctx);
+      return await router.handle(request);
     }
   },
 };
