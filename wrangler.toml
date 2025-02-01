@@ -1,6 +1,5 @@
 name = "url-shortener"
 main = "workers-site/index.js"
-type = "ESModule"
 
 account_id = "750f62e8572e2d2ab97bf4f84bb2a46b"
 compatibility_date = "2022-07-12"

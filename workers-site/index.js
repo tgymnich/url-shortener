@@ -1,7 +1,9 @@
 import { Router } from 'itty-router';
 import { customAlphabet } from 'nanoid/async';
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 
+const assetManifest = JSON.parse(manifestJSON);
 const router = Router();
 const nanoid = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
@@ -59,16 +61,21 @@ router.get('/:slug', async request => {
   }
 });
 
-async function handleEvent(event) {
-  let requestUrl = new URL(event.request.url);
-  if (requestUrl.pathname === '/' || requestUrl.pathname.includes('static')) {
-    return await getAssetFromKV(event);
-  } else {
-    return await router.handle(event.request);
-  }
-}
-
-
-addEventListener('fetch', event => {
-  event.respondWith(handleEvent(event));
-});
+export default {
+  async fetch(request, env, ctx) {
+    let requestUrl = new URL(request.url);
+    if (requestUrl.pathname === '/' || requestUrl.pathname.includes('static')) {
+      return await getAssetFromKV(
+        {
+          request,
+          waitUntil: ctx.waitUntil.bind(ctx),
+        },
+        {
+          ASSET_NAMESPACE: env.__STATIC_CONTENT,
+          ASSET_MANIFEST: assetManifest,
+        },
+      );    } else {
+      return await router.handle(request);
+    }
+  },
+};
