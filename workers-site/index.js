@@ -35,7 +35,7 @@ export default {
     });
     
     router.get('/:slug', async req => {
-      let link = await SHORTEN.get(req.params.slug);
+      let link = await env.SHORTEN.get(req.params.slug);
       let size = byteSize(link)
     
       if (link && size < 16000) {
