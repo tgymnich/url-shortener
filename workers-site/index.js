@@ -1,5 +1,5 @@
 import { Router } from 'itty-router';
-import { customAlphabet } from 'nanoid/async';
+import { customAlphabet } from 'nanoid'
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 
@@ -14,10 +14,9 @@ const byteSize = str => new Blob([str]).size;
 export default {
   async fetch(request, env, ctx) {
     router.post('/shorten', async req => {
-      let slug = await nanoid();
+      let slug = nanoid();
       let requestBody = await req.json();
       if ('url' in requestBody) {
-        // Add slug to our KV store so it can be retrieved later:
         env.SHORTEN.put(slug, requestBody.ur);
         let shortenedURL = `${new URL(req.url).origin}/${slug}`;
         let responseBody = {
@@ -74,7 +73,8 @@ export default {
           ASSET_NAMESPACE: env.__STATIC_CONTENT,
           ASSET_MANIFEST: assetManifest,
         },
-      );    } else {
+      );
+    } else {
       return await router.handle(request, env, ctx);
     }
   },
