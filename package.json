@@ -7,7 +7,8 @@
   "scripts": {
     "deploy": "vite build && wrangler deploy",
     "dev": "vite build && wrangler dev",
-    "start": "vite build && wrangler dev"
+    "start": "vite build && wrangler dev",
+    "build": "vite build"
   },
   "dependencies": {
     "itty-router": "^3.0.11",
