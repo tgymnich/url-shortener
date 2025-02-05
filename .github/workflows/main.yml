@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: cd workers-site && npm ci
+        run: npm ci
       - name: Publish
         uses: cloudflare/wrangler-action@v3.13.0
         with:
