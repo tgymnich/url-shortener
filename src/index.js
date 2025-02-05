@@ -8,6 +8,14 @@ const nanoid = customAlphabet(
 );
 const byteSize = str => new Blob([str]).size;
 
+router.get('/stats', async (request, env) => {
+	let kv = await env.SHORTEN.list();
+	return new Response(JSON.stringify({"count": kv.keys.length}), {
+		headers: { 'content-type': 'application/json' },
+		status: 200,
+	});
+});
+
 router.post('/shorten', async (request, env) => {
 	let slug = nanoid();
 	let requestBody = await request.json();
