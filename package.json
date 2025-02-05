@@ -1,0 +1,25 @@
+{
+  "name": "url-shortener",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+
+  "scripts": {
+    "deploy": "vite build && wrangler deploy",
+    "dev": "vite build && wrangler dev",
+    "start": "vite build && wrangler dev"
+  },
+  "dependencies": {
+    "itty-router": "^3.0.11",
+    "nanoid": "^5.0.9"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "tailwindcss": "^4.0.3",
+    "vite": "^6.0.5",
+    "wrangler": "^3.107.2",
+    "vue": "^3.5.13",
+    "prettier": "^3.4.2"
+  }
+}

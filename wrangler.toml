@@ -1,8 +1,8 @@
 name = "url-shortener"
-main = "workers-site/index.js"
+main = "src/index.js"
 
 account_id = "750f62e8572e2d2ab97bf4f84bb2a46b"
-compatibility_date = "2024-11-11"
+compatibility_date = "2025-01-29"
 
 workers_dev = false
 route = { pattern = "fwd.gymni.ch", custom_domain = true, zone_name = "gymni.ch" }
@@ -11,9 +11,9 @@ kv_namespaces = [
 	 { binding = "SHORTEN", id = "846502cb8f964e22ac4b7d2c801407d0" }
 ]
 
-[site]
-bucket = "./public"
+[assets]
+directory = "./dist/"
+binding = "ASSETS"
 
 [observability.logs]
 enabled = true
-
