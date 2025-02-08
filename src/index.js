@@ -1,4 +1,4 @@
-import { Router, json, html } from 'itty-router';
+import { Router, error, json, html } from 'itty-router';
 import { customAlphabet } from 'nanoid'
 
 const router = Router();
@@ -17,13 +17,13 @@ router.get('/assets/*', async (request, env) => {
 });
 
 router.get('/stats', async (request, env) => {
-	let kv = await env.SHORTEN.list();
-	return json({ "count": kv.keys.length })
+	const kv = await env.SHORTEN.list();
+	return json({ count: kv.keys.length })
 });
 
 router.post('/shorten', async (request, env) => {
-	let slug = nanoid();
-	let requestBody = await request.json();
+	const slug = nanoid();
+	const requestBody = await request.json();
 	let url
 	try {
 		url = new URL(requestBody.url);
@@ -33,22 +33,23 @@ router.post('/shorten', async (request, env) => {
 
 	await env.SHORTEN.put(slug, url.toString());
 
-	let shortenedURL = `${new URL(request.url).origin}/${slug}`;
+	const shortenedURL = `${new URL(request.url).origin}/${slug}`;
 	return json({
 		// "message": 'Link shortened successfully',
-		"url": shortenedURL
+		url: shortenedURL
 	});
 });
 
 router.get('/:slug', async (request, env) => {
-	let link = await env.SHORTEN.get(request.params.slug);
+	if (request.params.slug.length != 6) {
+		return error(400, "Invalid short link");
+	}
+	const link = await env.SHORTEN.get(request.params.slug);
 	if (!link) {
-		return error(400, "Must provide a valid URL");
+		return error(404, "Short link not found");
 	}
 
-	let size = byteSize(link)
-
-	if (link && size < 16000) {
+	if (byteSize(link) < 16000) {
 		return Response.redirect(link);
 	}
 
@@ -70,8 +71,10 @@ router.get('/:slug', async (request, env) => {
 	return html(redirectHTML);
 });
 
+router.all('*', () => error(404))
+
 export default {
 	async fetch(request, env, ctx) {
-		return await router.fetch(request, env);
+		return await router.fetch(request, env).catch(error);
 	}
 };
