@@ -14,6 +14,7 @@ kv_namespaces = [
 [assets]
 directory = "./dist/"
 binding = "ASSETS"
+run_worker_first = true
 
 [observability.logs]
 enabled = true
