@@ -4,7 +4,6 @@ export default {
         return {
             longUrl: null,
             shortUrl: null,
-            error: false,
             errorMessage: null,
         };
     },
@@ -18,21 +17,17 @@ export default {
                 body: JSON.stringify({
                     url: this.longUrl,
                 }),
-            })
-                .then((response) => {
-                    if (response.status == 200) {
-                        this.error = false;
-                        return response.json();
-                    } else {
-                        throw new Error('Issue saving URL');
-                    }
-                })
-                .then((data) => {
-                    this.shortUrl = data.url;
-                })
-                .catch((error) => {
-                    this.error = true;
-                });
+            }).then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}\n${response.statusText}`);
+                }
+                return response.json();
+            }).then((data) => {
+                this.error = null;
+                this.shortUrl = data.url;
+            }).catch((error) => {
+                this.errorMessage = error.message;
+            });
         },
     }
 }
@@ -67,7 +62,7 @@ export default {
             </div>
         </div>
 
-        <div v-if="error">
+        <div v-if="errorMessage">
             <div
                 class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md transition-transform">
                 <div class="flex items-center justify-center w-12 bg-red-500">
@@ -80,10 +75,7 @@ export default {
                 <div class="px-4 py-2 -mx-3">
                     <div class="mx-3">
                         <span class="font-semibold text-red-500">Error</span>
-                        <p class="text-sm text-gray-600">
-                            Error shortening your url. Please ensure it's a valid URL and
-                            starts with http:// or https://
-                        </p>
+                        <p class="text-sm text-gray-600"> {{ errorMessage }} </p>
                     </div>
                 </div>
             </div>
