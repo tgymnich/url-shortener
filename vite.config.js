@@ -7,6 +7,7 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
+    minify: true,
   },
   plugins: [
     vue(),
