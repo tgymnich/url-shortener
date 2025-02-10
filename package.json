@@ -6,8 +6,7 @@
 
   "scripts": {
     "deploy": "vite build && wrangler deploy",
-    "dev": "vite build && wrangler dev",
-    "start": "vite build && wrangler dev",
+    "dev": "vite build --mode development && wrangler dev",
     "build": "vite build"
   },
   "dependencies": {
