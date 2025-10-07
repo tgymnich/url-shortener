@@ -57,9 +57,11 @@ router.get('/:slug', async (request, env) => {
 <html lang="en-US">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0 url=${link}">
+    <meta http-equiv="refresh" content="3;url=${link}">
     <script type="text/javascript">
-            window.location.href = "${link}"
+		const delay = ms => new Promise(res => setTimeout(res, ms));
+		await delay(4000);
+        window.location.href = "${link}"
     </script>
     <title>Page Redirection</title>
   </head>
