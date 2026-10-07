@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-
   "scripts": {
     "deploy": "vite build && wrangler deploy",
     "dev": "vite build --mode development && wrangler dev",
@@ -16,10 +15,10 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.3",
     "@vitejs/plugin-vue": "^6.0.7",
+    "prettier": "^3.4.2",
     "tailwindcss": "^4.0.3",
     "vite": "^8.1.4",
-    "wrangler": "^4.145.0",
     "vue": "^3.5.13",
-    "prettier": "^3.4.2"
+    "wrangler": "^4.148.0"
   }
 }
